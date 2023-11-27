@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const disciplinaValidator = Yup.object().shape({
+const entregadorValidator = Yup.object().shape({
     nome: Yup.string()
         .min(2, 'Valor muito curto')
         .max(200, 'Valor muito grande')
@@ -8,4 +8,4 @@ const disciplinaValidator = Yup.object().shape({
     curso_id: Yup.string(),
 })
 
-export default disciplinaValidator
+export default entregadorValidator

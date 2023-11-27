@@ -4,16 +4,18 @@ import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import cursoValidator from '../../validators/cursoValidator'
+import clienteValidator from '../../validators/clienteValidator'
 import { mask } from 'remask'
 import { Picker } from '@react-native-picker/picker'
 
-const CursosForm = ({ navigation, route }) => {
+const ClientesForm = ({ navigation, route }) => {
 
-  let curso = {
+  let cliente = {
     nome: '',
-    duracao: '',
-    modalidade: ''
+    email: '',
+    contato: '',
+    endereco: '',
+    Fidelidade: ''
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -21,22 +23,22 @@ const CursosForm = ({ navigation, route }) => {
   const id = route.params?.id
 
   if (id >= 0) {
-    curso = route.params?.curso
+    cliente = route.params?.cliente
   }
 
   function salvar(dados) {
 
-    AsyncStorage.getItem('cursos').then(resultado => {
+    AsyncStorage.getItem('clientes').then(resultado => {
 
-      const cursos = JSON.parse(resultado) || []
+      const clientes = JSON.parse(resultado) || []
 
       if (id >= 0) {
-        cursos.splice(id, 1, dados)
+        clientes.splice(id, 1, dados)
       } else {
-        cursos.push(dados)
+        clientes.push(dados)
       }
 
-      AsyncStorage.setItem('cursos', JSON.stringify(cursos))
+      AsyncStorage.setItem('clientes', JSON.stringify(clientes))
 
       navigation.goBack()
     })
@@ -44,11 +46,11 @@ const CursosForm = ({ navigation, route }) => {
 
   return (
     <ScrollView style={{ margin: 15 }}>
-      <Text>Formulário de Curso</Text>
+      <Text>Formulário de cliente</Text>
 
       <Formik
-        initialValues={curso}
-        validationSchema={cursoValidator}
+        initialValues={cliente}
+        validationSchema={clienteValidator}
         onSubmit={values => salvar(values)}
       >
         {({ values, handleChange, handleSubmit, errors, touched, setFieldValue }) => (
@@ -107,4 +109,4 @@ const CursosForm = ({ navigation, route }) => {
   )
 }
 
-export default CursosForm
+export default ClientesForm

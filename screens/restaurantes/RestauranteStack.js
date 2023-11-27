@@ -8,7 +8,12 @@ const Stack = createNativeStackNavigator();
 const RestauranteStack = () => {
     return (
         <>
-            <Stack.Navigator initialRouteName='cursos'>
+            <Stack.Navigator
+            screenOptions={{
+                headerStyle: {
+                  backgroundColor: '#f7f16f'
+                }
+              }}>
                 <Stack.Screen name="restaurantes" component={Restaurantes} options={{ title: 'Restaurantes' }} />
                 <Stack.Screen name="restaurantes-form" component={RestaurantesForm} options={{ title: 'Restaurantes' }} />
             </Stack.Navigator>

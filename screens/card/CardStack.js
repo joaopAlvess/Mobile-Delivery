@@ -1,19 +1,24 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react'
-import Cursos from './Cursos';
-import CursosForm from './CursosForm';
+import Cards from './Cards';
+import CardsForm from './CardsForm';
 
 const Stack = createNativeStackNavigator();
 
-const CursoStack = () => {
+const CardStack = () => {
     return (
         <>
-            <Stack.Navigator initialRouteName='cursos'>
-                <Stack.Screen name="cursos" component={Cursos} options={{ title: 'Cursos' }} />
-                <Stack.Screen name="cursos-form" component={CursosForm} options={{ title: 'Cursos' }} />
+            <Stack.Navigator
+            screenOptions={{
+                headerStyle: {
+                  backgroundColor: '#f7f16f'
+                }
+              }}>
+                <Stack.Screen name="cards" component={Cards} options={{ title: 'Cards' }} />
+                <Stack.Screen name="cards-form" component={CardsForm} options={{ title: 'Cartão Fidelidade' }} />
             </Stack.Navigator>
         </>
     )
 }
 
-export default CursoStack
+export default CardStack

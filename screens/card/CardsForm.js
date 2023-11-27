@@ -8,7 +8,7 @@ import cursoValidator from '../../validators/cursoValidator'
 import { mask } from 'remask'
 import { Picker } from '@react-native-picker/picker'
 
-const CursosForm = ({ navigation, route }) => {
+const CardsForm = ({ navigation, route }) => {
 
   let curso = {
     nome: '',
@@ -107,4 +107,4 @@ const CursosForm = ({ navigation, route }) => {
   )
 }
 
-export default CursosForm
+export default CardsForm
