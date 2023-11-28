@@ -74,11 +74,11 @@ const ProdutosForm = ({ navigation, route }) => {
               mode='outlined'
               label='Nome Produto'
               value={values.nome_produto}
-              onChangeText={handleChange('duracao')}
+              onChangeText={handleChange('nome_produto')}
             />
-            {(errors.duracao && touched.duracao) &&
+            {(errors.nome_produto && touched.nome_produto) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
+                {errors.nome_produto}
               </Text>
             }
             <TextInput
@@ -86,37 +86,37 @@ const ProdutosForm = ({ navigation, route }) => {
               mode='outlined'
               label='Nome Produto'
               value={values.nome_produto}
-              onChangeText={handleChange('duracao')}
+              onChangeText={handleChange('')}
             />
             {(errors.duracao && touched.duracao) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.duracao}
               </Text>
             }
-
             <TextInput
               style={{ marginTop: 10 }}
               mode='outlined'
               label='Preço Produto'
               value={values.preco_produto}
-              onChangeText={handleChange('duracao')}
+              onChangeText={handleChange('preco_produto')}
             />
-            {(errors.duracao && touched.duracao) &&
+            {(errors.preco_produto && touched.preco_produto) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
+                {errors.preco_produto}
               </Text>
             }
 
-            <TextInput
-              style={{ marginTop: 10 }}
-              mode='outlined'
-              label='Pagamento'
-              value={values.pagamento}
-              onChangeText={handleChange('duracao')}
-            />
-            {(errors.duracao && touched.duracao) &&
+            <Picker
+              selectedValue={values.pagamento}
+              onValueChange={handleChange('pagamento')}>
+              <Picker.Item label="Forma de Pagamento" value="" />
+              <Picker.Item label="Cartão de Crédito" value="cartao" />
+              <Picker.Item label="Pagamento no Local" value="dinheiro" />
+              <Picker.Item label="Pix" value="pix" />
+            </Picker>
+            {(errors.modalidade && touched.modalidade) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
+                {errors.modalidade}
               </Text>
             }
 
@@ -125,11 +125,11 @@ const ProdutosForm = ({ navigation, route }) => {
               mode='outlined'
               label='Informações Adicionais'
               value={values.informacoes}
-              onChangeText={handleChange('duracao')}
+              onChangeText={handleChange('informacoes')}
             />
-            {(errors.duracao && touched.duracao) &&
+            {(errors.informacoes && touched.informacoes) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
+                {errors.informacoes}
               </Text>
             }
 
@@ -145,18 +145,24 @@ const ProdutosForm = ({ navigation, route }) => {
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.modalidade}
               </Text>
-            }            
+            }
 
-            <Button onPress={handleSubmit}>Salvar</Button>
+            <Button onPress={handleSubmit} style={{ borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000' }}>Salvar</Button>
           </View>
         )}
 
       </Formik>
 
 
-
     </ScrollView>
   )
-}
+};
+
+const styles = StyleSheet.create({
+  compoInput: {
+    backgroundColor: '#fcf2c5',
+    marginTop: 10
+  }
+})
 
 export default ProdutosForm;

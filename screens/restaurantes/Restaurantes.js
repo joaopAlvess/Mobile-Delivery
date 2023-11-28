@@ -47,7 +47,7 @@ const Restaurantes = ({ navigation }) => {
         {restaurantes.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
             <Card.Content>
-              <Text variant="titleLarge">{item.nome}</Text>
+              <Text variant="titleLarge">{item.nomeEmpresa}</Text>
               <Text variant="bodyMedium">Telefone: {item.telefone}</Text>
               <Text variant="bodyMedium">CEP: {item.cep}</Text>
               <Text variant="bodyMedium">Tempo Entrega: {item.tempo_entrega}</Text>

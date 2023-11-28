@@ -137,7 +137,7 @@ const ClientesForm = ({ navigation, route }) => {
               </Text>
             }            
 
-            <Button onPress={handleSubmit}>Salvar</Button>
+            <Button onPress={handleSubmit} style={{borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000'}}>Salvar</Button>
           </View>
         )}
 
