@@ -47,7 +47,7 @@ const Cards = ({ navigation }) => {
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
             <Card.Content>
               <Text variant="titleLarge">{item.nome}</Text>
-              <Text variant="bodyMedium">Email: {item.email}</Text>
+              <Text variant="bodyMedium">Email Corporativo: {item.email}</Text>
               <Text variant="bodyMedium">Contato: {item.contato}</Text>
               <Text variant="bodyMedium">Endereco: {item.endereco}</Text>
               <Text variant="bodyMedium">Fidelidade: {item.fidelidade}</Text>

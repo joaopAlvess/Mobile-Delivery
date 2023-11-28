@@ -28,6 +28,13 @@ const RestaurantesForm = ({ navigation, route }) => {
     restaurante = route.params?.restaurante
   }
 
+  useEffect(() => {
+    AsyncStorage.getItem('entregadores').then(resultado => {
+      resultado = JSON.parse(resultado) || []
+      setCursos(resultado)
+    })
+  }, [])
+
   function salvar(dados) {
 
     AsyncStorage.getItem('restaurantes').then(resultado => {
@@ -167,6 +174,24 @@ const RestaurantesForm = ({ navigation, route }) => {
               <Picker.Item label="EAD" value="EAD" />
               <Picker.Item label="Híbrido" value="Híbrido" />
             </Picker>
+            {(errors.modalidade && touched.modalidade) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.modalidade}
+              </Text>
+            }
+
+            <Picker
+              selectedValue={values.curso_id}
+              onValueChange={handleChange('curso_id')}>
+              <Picker.Item label="Curso" value="" />
+              {cursos.map((item, i) => (
+                <Picker.Item key={i}
+                  label={item.nome}
+                  value={item.nome}
+                />
+              ))}
+            </Picker>
+
             {(errors.modalidade && touched.modalidade) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.modalidade}

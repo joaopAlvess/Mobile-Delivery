@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from 'axios'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import clienteValidator from '../../validators/clienteValidator'
-import { mask } from 'remask'
+
+
 import { Picker } from '@react-native-picker/picker'
+import clienteValidator from '../../validators/clienteValidator copy 2'
 
 const ClientesForm = ({ navigation, route }) => {
 
@@ -15,7 +15,7 @@ const ClientesForm = ({ navigation, route }) => {
     email: '',
     contato: '',
     endereco: '',
-    Fidelidade: ''
+    fidelidade: ''
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -72,28 +72,64 @@ const ClientesForm = ({ navigation, route }) => {
             <TextInput
               style={{ marginTop: 10 }}
               mode='outlined'
-              label='Duração'
-              keyboardType='decimal-pad'
-              value={values.duracao}
-              onChangeText={handleChange('duracao')}
+              label='Email'
+              value={values.email}
+              onChangeText={handleChange('email')}
             />
-            {(errors.duracao && touched.duracao) &&
+            {(errors.email && touched.email) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
+                {errors.email}
+              </Text>
+            }
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Email'
+              value={values.email}
+              onChangeText={handleChange('email')}
+            />
+            {(errors.email && touched.email) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.email}
+              </Text>
+            }
+
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Contato'
+              value={values.contato}
+              onChangeText={handleChange('contato')}
+            />
+            {(errors.contato && touched.contato) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.contato}
+              </Text>
+            }
+
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Endereço'
+              value={values.endereco}
+              onChangeText={handleChange('endereco')}
+            />
+            {(errors.endereco && touched.endereco) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.endereco}
               </Text>
             }
 
             <Picker
-              selectedValue={values.modalidade}
-              onValueChange={handleChange('modalidade')}>
-              <Picker.Item label="Modalidade" value="" />
-              <Picker.Item label="Presencial" value="Presencial" />
-              <Picker.Item label="EAD" value="EAD" />
-              <Picker.Item label="Híbrido" value="Híbrido" />
+              selectedValue={values.fidelidade}
+              onValueChange={handleChange('fidelidade')}>
+              <Picker.Item label="Plano Fidelidade" value="" />
+              <Picker.Item label="Sim" value="Sim" />
+              <Picker.Item label="Não" value="Não" />
             </Picker>
-            {(errors.modalidade && touched.modalidade) &&
+            {(errors.fidelidade && touched.fidelidade) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.modalidade}
+                {errors.fidelidade}
               </Text>
             }            
 

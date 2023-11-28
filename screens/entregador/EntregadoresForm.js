@@ -82,48 +82,6 @@ const EntregadorsForm = ({ navigation, route }) => {
               </Text>
             }
 
-            <TextInput
-              style={{ marginTop: 10 }}
-              mode='outlined'
-              label='Telefone'
-              keyboardType='decimal-pad'
-              value={values.telefone}
-              onChangeText={handleChange('duracao')}
-            />
-            {(errors.duracao && touched.duracao) &&
-              <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
-              </Text>
-            }
-
-            <TextInput
-              style={{ marginTop: 10 }}
-              mode='outlined'
-              label='Restaurante'
-              keyboardType='decimal-pad'
-              value={values.restaurante}
-              onChangeText={handleChange('duracao')}
-            />
-            {(errors.duracao && touched.duracao) &&
-              <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
-              </Text>
-            }
-
-            <TextInput
-              style={{ marginTop: 10 }}
-              mode='outlined'
-              label='CPF'
-              keyboardType='decimal-pad'
-              value={values.cpf}
-              onChangeText={handleChange('duracao')}
-            />
-            {(errors.duracao && touched.duracao) &&
-              <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
-              </Text>
-            }
-
             <Picker
               selectedValue={values.modalidade}
               onValueChange={handleChange('modalidade')}>
@@ -136,7 +94,23 @@ const EntregadorsForm = ({ navigation, route }) => {
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.modalidade}
               </Text>
-            }            
+            }
+
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='CPF'
+              value={values.cpf}
+              onChangeText={handleChange('cpf')}
+            />
+            {(errors.cpf && touched.cpf) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.cpf}
+              </Text>
+            }
+
+
+
 
             <Button onPress={handleSubmit}>Salvar</Button>
           </View>

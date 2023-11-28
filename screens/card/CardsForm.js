@@ -4,16 +4,19 @@ import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import cursoValidator from '../../validators/cursoValidator'
+import cardValidator from '../../validators/cardValidator'
 import { mask } from 'remask'
 import { Picker } from '@react-native-picker/picker'
 
 const CardsForm = ({ navigation, route }) => {
 
-  let curso = {
+  let card = {
     nome: '',
-    duracao: '',
-    modalidade: ''
+    email: '',
+    contato: '',
+    nomeEmpresa: '',
+    cnpj: '',
+    qtdCartoes: ''
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -21,22 +24,22 @@ const CardsForm = ({ navigation, route }) => {
   const id = route.params?.id
 
   if (id >= 0) {
-    curso = route.params?.curso
+    card = route.params?.card
   }
 
   function salvar(dados) {
 
-    AsyncStorage.getItem('cursos').then(resultado => {
+    AsyncStorage.getItem('cards').then(resultado => {
 
-      const cursos = JSON.parse(resultado) || []
+      const cards = JSON.parse(resultado) || []
 
       if (id >= 0) {
-        cursos.splice(id, 1, dados)
+        cards.splice(id, 1, dados)
       } else {
-        cursos.push(dados)
+        cards.push(dados)
       }
 
-      AsyncStorage.setItem('cursos', JSON.stringify(cursos))
+      AsyncStorage.setItem('cards', JSON.stringify(cards))
 
       navigation.goBack()
     })
@@ -44,11 +47,11 @@ const CardsForm = ({ navigation, route }) => {
 
   return (
     <ScrollView style={{ margin: 15 }}>
-      <Text>Formulário de Curso</Text>
+      <Text>Formulário de Cards</Text>
 
       <Formik
-        initialValues={curso}
-        validationSchema={cursoValidator}
+        initialValues={card}
+        validationSchema={cardValidator}
         onSubmit={values => salvar(values)}
       >
         {({ values, handleChange, handleSubmit, errors, touched, setFieldValue }) => (
@@ -70,30 +73,53 @@ const CardsForm = ({ navigation, route }) => {
             <TextInput
               style={{ marginTop: 10 }}
               mode='outlined'
-              label='Duração'
-              keyboardType='decimal-pad'
-              value={values.duracao}
-              onChangeText={handleChange('duracao')}
+              label='Contato'
+              value={values.contato}
+              onChangeText={handleChange('contato')}
             />
-            {(errors.duracao && touched.duracao) &&
+            {(errors.contato && touched.contato) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
+                {errors.contato}
+              </Text>
+            }
+
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='email'
+              value={values.email}
+              onChangeText={handleChange('email')}
+            />
+            {(errors.email && touched.email) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.email}
+              </Text>
+            }
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Nome Empresa'
+              value={values.nomeEmpresa}
+              onChangeText={handleChange('nomeEmpresa')}
+            />
+            {(errors.nomeEmpresa && touched.nomeEmpresa) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.nomeEmpresa}
               </Text>
             }
 
             <Picker
-              selectedValue={values.modalidade}
-              onValueChange={handleChange('modalidade')}>
-              <Picker.Item label="Modalidade" value="" />
-              <Picker.Item label="Presencial" value="Presencial" />
-              <Picker.Item label="EAD" value="EAD" />
-              <Picker.Item label="Híbrido" value="Híbrido" />
+              selectedValue={values.fidelidade}
+              onValueChange={handleChange('fidelidade')}>
+              <Picker.Item label="Cartão Fidelidade" value="" />
+              <Picker.Item label="Sim" value="Sim" />
+              <Picker.Item label="Não" value="Não" />
             </Picker>
-            {(errors.modalidade && touched.modalidade) &&
+            {(errors.fidelidade && touched.fidelidade) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.modalidade}
+                {errors.fidelidade}
               </Text>
-            }            
+            }
 
             <Button onPress={handleSubmit}>Salvar</Button>
           </View>
