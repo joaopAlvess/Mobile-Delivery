@@ -93,9 +93,22 @@ const CursosForm = ({ navigation, route }) => {
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.modalidade}
               </Text>
-            }            
+            }
 
-            <Button onPress={handleSubmit}>Salvar</Button>
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Quantidade Cartões'
+              keyboardType='decimal-pad'
+              value={values.qtdCartoes}
+              onChangeText={handleChange('qtdCartoes')}
+            />
+            {(errors.qtdCartoes && touched.qtdCartoes) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.qtdCartoes}
+              </Text>
+            }
+            <Button onPress={handleSubmit} style={{borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000'}}>Salvar</Button>
           </View>
         )}
 

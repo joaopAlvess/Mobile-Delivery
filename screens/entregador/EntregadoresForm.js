@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import entregadorValidator from '../../validators/entregadorValidator'
 import { mask } from 'remask'
@@ -18,12 +18,20 @@ const EntregadorsForm = ({ navigation, route }) => {
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
-
+  const [restaurantes, setRestaurantes] = useState([])
   const id = route.params?.id
 
   if (id >= 0) {
     entregador = route.params?.entregador
   }
+
+
+  useEffect(() => {
+    AsyncStorage.getItem('restaurantes').then(resultado => {
+      resultado = JSON.parse(resultado) || []
+      setRestaurantes(resultado)
+    })
+  }, [])
 
   function salvar(dados) {
 
@@ -56,7 +64,7 @@ const EntregadorsForm = ({ navigation, route }) => {
           <View>
 
             <TextInput
-              style={{ marginTop: 10 }}
+              style={styles.compoInput}
               mode='outlined'
               label='Nome'
               value={values.nome}
@@ -69,7 +77,7 @@ const EntregadorsForm = ({ navigation, route }) => {
             }
 
             <TextInput
-              style={{ marginTop: 10 }}
+              style={styles.compoInput}
               mode='outlined'
               label='Telefone'
               keyboardType='decimal-pad'
@@ -83,12 +91,18 @@ const EntregadorsForm = ({ navigation, route }) => {
             }
 
             <Picker
-              selectedValue={values.modalidade}
-              onValueChange={handleChange('modalidade')}>
-              <Picker.Item label="Modalidade" value="" />
-              <Picker.Item label="Presencial" value="Presencial" />
-              <Picker.Item label="EAD" value="EAD" />
-              <Picker.Item label="Híbrido" value="Híbrido" />
+              style={{ marginTop: 10, padding: 10, fontSize: 15 }}
+              selectedValue={values.restaurante}
+              onValueChange={handleChange('restaurante')
+              }>
+              <Picker.Item label='Restaurante' value='' />
+              {restaurantes.map((item, i) => (
+                <Picker.Item key={i}
+                  label={item.nome}
+                  value={item.nome}
+                />
+              ))}
+
             </Picker>
             {(errors.modalidade && touched.modalidade) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
@@ -97,7 +111,7 @@ const EntregadorsForm = ({ navigation, route }) => {
             }
 
             <TextInput
-              style={{ marginTop: 10 }}
+              style={styles.compoInput}
               mode='outlined'
               label='CPF'
               value={values.cpf}
@@ -123,5 +137,12 @@ const EntregadorsForm = ({ navigation, route }) => {
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  compoInput: {
+    backgroundColor: '#fcf2c5',
+    marginTop: 10
+  }
+})
 
 export default EntregadorsForm;

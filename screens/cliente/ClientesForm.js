@@ -1,12 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-
-
 import { Picker } from '@react-native-picker/picker'
-import clienteValidator from '../../validators/clienteValidator copy 2'
+import clienteValidator from '../../validators/clienteValidator'
+
 
 const ClientesForm = ({ navigation, route }) => {
 
@@ -57,7 +56,7 @@ const ClientesForm = ({ navigation, route }) => {
           <View>
 
             <TextInput
-              style={{ marginTop: 10 }}
+              style={styles.compoInput}
               mode='outlined'
               label='Nome'
               value={values.nome}
@@ -70,9 +69,10 @@ const ClientesForm = ({ navigation, route }) => {
             }
 
             <TextInput
-              style={{ marginTop: 10 }}
+              style={styles.compoInput}
               mode='outlined'
               label='Email'
+              keyboardType='email-address'
               value={values.email}
               onChangeText={handleChange('email')}
             />
@@ -81,8 +81,9 @@ const ClientesForm = ({ navigation, route }) => {
                 {errors.email}
               </Text>
             }
+
             <TextInput
-              style={{ marginTop: 10 }}
+              style={styles.compoInput}
               mode='outlined'
               label='Email'
               value={values.email}
@@ -95,9 +96,10 @@ const ClientesForm = ({ navigation, route }) => {
             }
 
             <TextInput
-              style={{ marginTop: 10 }}
+              style={styles.compoInput}
               mode='outlined'
               label='Contato'
+              keyboardType='number-pad'
               value={values.contato}
               onChangeText={handleChange('contato')}
             />
@@ -108,7 +110,7 @@ const ClientesForm = ({ navigation, route }) => {
             }
 
             <TextInput
-              style={{ marginTop: 10 }}
+              style={styles.compoInput}
               mode='outlined'
               label='Endereço'
               value={values.endereco}
@@ -122,7 +124,9 @@ const ClientesForm = ({ navigation, route }) => {
 
             <Picker
               selectedValue={values.fidelidade}
-              onValueChange={handleChange('fidelidade')}>
+              onValueChange={handleChange('fidelidade')}
+              style={{ height: 50, width: 370, marginTop: 10, textAlign: 'center' }}
+              itemStyle={{ fontSize: 18, paddingLeft: 10 }}>
               <Picker.Item label="Plano Fidelidade" value="" />
               <Picker.Item label="Sim" value="Sim" />
               <Picker.Item label="Não" value="Não" />
@@ -144,5 +148,12 @@ const ClientesForm = ({ navigation, route }) => {
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  compoInput: {
+    backgroundColor: '#fcf2c5',
+    marginTop: 10
+  }
+})
 
 export default ClientesForm
