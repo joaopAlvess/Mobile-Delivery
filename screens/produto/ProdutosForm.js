@@ -5,8 +5,9 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import produtoValidator from '../../validators/produtoValidator'
-import { mask } from 'remask'
 import { Picker } from '@react-native-picker/picker'
+import { MaskedTextInput } from 'react-native-mask-text'
+
 
 const ProdutosForm = ({ navigation, route }) => {
 
@@ -34,6 +35,7 @@ const ProdutosForm = ({ navigation, route }) => {
       setDeliverys(resultado)
     })
   }, [])
+
 
   function salvar(dados) {
 
@@ -96,19 +98,29 @@ const ProdutosForm = ({ navigation, route }) => {
                 {errors.nome_produto}
               </Text>
             }
-           
-            <TextInput
-              style={styles.compoInput}
-              mode='outlined'
-              label='Preço Produto'
+
+            <MaskedTextInput
+              type="currency"
+              options={{
+                prefix: 'R$',
+                decimalSeparator: ',',
+                groupSeparator: '.',
+                precision: 2
+              }}
+              onChangeText={(text, rawText) => {
+                setFieldValue('preco_produto', rawText);
+              }}
+              style={styles.maskCurrency}
+              mode="outlined"
+              keyboardType="numeric"
+              placeholder='Preço Produto'
               value={values.preco_produto}
-              onChangeText={handleChange('preco_produto')}
             />
-            {(errors.preco_produto && touched.preco_produto) &&
+            {(errors.preco_produto && touched.preco_produto) && (
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.preco_produto}
               </Text>
-            }
+            )}
 
             <Picker
               selectedValue={values.pagamento}
@@ -154,6 +166,14 @@ const styles = StyleSheet.create({
   compoInput: {
     backgroundColor: '#fcf2c5',
     marginTop: 10
+  },
+  maskCurrency: {
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 10,
+    backgroundColor: '#fcf2c5'
+
   }
 })
 

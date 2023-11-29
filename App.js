@@ -23,7 +23,7 @@ export default function App() {
               component={ClienteStack}
               options={{
                 tabBarIcon: () => (
-                  <MaterialCommunityIcons name="bookshelf" size={26} />
+                  <MaterialCommunityIcons name="account-box" size={26} />
                 ),
               }}
             />
@@ -32,7 +32,7 @@ export default function App() {
               component={DeliveryStack}
               options={{
                 tabBarIcon: () => (
-                  <MaterialCommunityIcons name="book-open-variant" size={26} />
+                  <MaterialCommunityIcons name="google-my-business" size={26} />
                 ),
               }}
             />
@@ -41,7 +41,7 @@ export default function App() {
               component={EntregadorsStack}
               options={{
                 tabBarIcon: () => (
-                  <MaterialCommunityIcons name="human-handsup" size={26} />
+                  <MaterialCommunityIcons name="motorbike" size={26} />
                 ),
               }}
             />
@@ -50,7 +50,7 @@ export default function App() {
               component={CardStack}
               options={{
                 tabBarIcon: () => (
-                  <MaterialCommunityIcons name="account-tie" size={26} />
+                  <MaterialCommunityIcons name="smart-card" size={26} />
                 ),
               }}
             />
@@ -59,7 +59,7 @@ export default function App() {
               component={ProdutoStack}
               options={{
                 tabBarIcon: () => (
-                  <MaterialCommunityIcons name="google-classroom" size={26} />
+                  <MaterialCommunityIcons name="food" size={26} />
                 ),
               }}
             />
