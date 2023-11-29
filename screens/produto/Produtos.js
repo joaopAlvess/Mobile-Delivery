@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Card, Dialog, FAB, IconButton, MD3DarkTheme, Portal, Text } from 'react-native-paper'
 
+
+
 const Produtos = ({ navigation }) => {
 
   const [produtos, setProdutos] = useState([])
@@ -45,12 +47,14 @@ const Produtos = ({ navigation }) => {
 
         {produtos.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
-            <Card.Content>
+            <Card.Content style={{backgroundColor: '#fcf7d2'}}>
               <Text variant="titleLarge">Restaurante: {item.delivery}</Text>
-              <Text variant="bodyMedium">Nome Produto: {item.nome_produto} sem.</Text>
-              <Text variant="bodyMedium">Preço Produto: {item.preco_produto}</Text>
+              <Text variant="bodyMedium">Produto: {item.produto}</Text>
+              <Text variant="bodyMedium">Cliente: {item.cliente} sem.</Text>
               <Text variant="bodyMedium">Informações Pagamento: {item.pagamento}</Text>
               <Text variant="bodyMedium">Informações Adicionais: {item.informacoes}</Text>
+              <Text variant="bodyMedium">Avaliação: {item.rating}</Text>
+
             </Card.Content>
             <Card.Actions>
               <IconButton 

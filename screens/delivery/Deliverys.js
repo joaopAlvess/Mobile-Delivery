@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
+import { StyleSheet } from 'react-native'
 import { ScrollView, View } from 'react-native'
 import { Button, Card, Dialog, FAB, IconButton, MD3DarkTheme, Portal, Text } from 'react-native-paper'
 
@@ -45,18 +46,19 @@ const Deliverys = ({ navigation }) => {
 
         {deliverys.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
-            <Card.Content>
+            <Card.Content  style={{backgroundColor: '#fcf7d2'}}>
               <Text variant="titleLarge">Nome da Empresa: {item.nome_empresa}</Text>
               <Text variant="bodyMedium">Telefone: {item.telefone}</Text>
               <Text variant="bodyMedium">CEP: {item.cep}</Text>
               <Text variant="bodyMedium">Tempo Entrega: {item.tempo_entrega}</Text>
               <Text variant="bodyMedium">Horário Funcionamento: {item.funcionamento}</Text>
-              <Text variant="bodyMedium">Avaliação: {item.avaliacao}</Text>
+              <Text variant="bodyMedium">Produto: {item.nome_produto}</Text>
+              <Text variant="bodyMedium">Preço: {item.preco_produto}</Text>
             </Card.Content>
             <Card.Actions>
-              <IconButton 
-                icon='pencil-outline' 
-                onPress={() => navigation.push('deliverys-form', {id: i, delivery: item})}
+              <IconButton
+                icon='pencil-outline'
+                onPress={() => navigation.push('deliverys-form', { id: i, delivery: item })}
               />
               <IconButton
                 icon='trash-can-outline'
@@ -90,5 +92,12 @@ const Deliverys = ({ navigation }) => {
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  imagem: {
+    width: 50,
+    height: 50
+  }
+})
 
 export default Deliverys;

@@ -5,7 +5,13 @@ const entregadorValidator = Yup.object().shape({
         .min(2, 'Valor muito curto')
         .max(200, 'Valor muito grande')
         .required('Campo obrigatório'),
-    curso_id: Yup.string(),
+    telefone: Yup.string()
+        .required('Campo obrigatório'),
+    delivery: Yup.string()
+        .max(200, 'Valor muito grande')
+        .required('Campo obrigatório'),
+    cpf: Yup.string()
+        .required('Campo obrigatório'),
 })
 
 export default entregadorValidator

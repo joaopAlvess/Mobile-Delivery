@@ -6,21 +6,24 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import produtoValidator from '../../validators/produtoValidator'
 import { Picker } from '@react-native-picker/picker'
-import { MaskedTextInput } from 'react-native-mask-text'
+import { AirbnbRating } from 'react-native-ratings'
 
 
 const ProdutosForm = ({ navigation, route }) => {
 
   let produto = {
     delivery: '',
-    nome_produto: '',
-    preco_produto: '',
+    produto: '',
+    cliente: '',
     pagamento: '',
-    informacoes: ''
+    informacoes: '',
+    avaliacao: '',
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
   const [deliverys, setDeliverys] = useState([])
+  const [clientes, setClientes] = useState([])
+  const [rating, setRating] = useState(0);
 
   const id = route.params?.id
 
@@ -33,6 +36,10 @@ const ProdutosForm = ({ navigation, route }) => {
     AsyncStorage.getItem('deliverys').then(resultado => {
       resultado = JSON.parse(resultado) || []
       setDeliverys(resultado)
+    })
+    AsyncStorage.getItem('clientes').then(resultado => {
+      resultado = JSON.parse(resultado) || []
+      setClientes(resultado)
     })
   }, [])
 
@@ -86,41 +93,43 @@ const ProdutosForm = ({ navigation, route }) => {
               </Text>
             }
 
-            <TextInput
-              style={styles.compoInput}
-              mode='outlined'
-              label='Nome Produto'
-              value={values.nome_produto}
-              onChangeText={handleChange('nome_produto')}
-            />
-            {(errors.nome_produto && touched.nome_produto) &&
+            <Picker
+              style={{ marginTop: 10, padding: 10, fontSize: 15 }}
+              selectedValue={values.produto}
+              onValueChange={handleChange('produto')
+              }>
+              <Picker.Item label='Produto' value='' />
+              {deliverys.map((item, i) => (
+                <Picker.Item key={i}
+                  label={item.nome_produto}
+                  value={item.nome_produto}
+                />
+              ))}
+            </Picker>
+            {(errors.produto && touched.produto) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.nome_produto}
+                {errors.produto}
               </Text>
             }
 
-            <MaskedTextInput
-              type="currency"
-              options={{
-                prefix: 'R$',
-                decimalSeparator: ',',
-                groupSeparator: '.',
-                precision: 2
-              }}
-              onChangeText={(text, rawText) => {
-                setFieldValue('preco_produto', rawText);
-              }}
-              style={styles.maskCurrency}
-              mode="outlined"
-              keyboardType="numeric"
-              placeholder='Preço Produto'
-              value={values.preco_produto}
-            />
-            {(errors.preco_produto && touched.preco_produto) && (
+            <Picker
+              style={{ marginTop: 10, padding: 10, fontSize: 15 }}
+              selectedValue={values.cliente}
+              onValueChange={handleChange('cliente')
+              }>
+              <Picker.Item label='Cliente' value='' />
+              {clientes.map((item, i) => (
+                <Picker.Item key={i}
+                  label={item.nome}
+                  value={item.nome}
+                />
+              ))}
+            </Picker>
+            {(errors.cliente && touched.cliente) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.preco_produto}
+                {errors.cliente}
               </Text>
-            )}
+            }
 
             <Picker
               selectedValue={values.pagamento}
@@ -151,6 +160,18 @@ const ProdutosForm = ({ navigation, route }) => {
               </Text>
             }
 
+            <Text
+              style={{ marginTop: 10, fontSize: 15, borderWidth: 1, borderRadius: 8, textAlign: 'center', padding: 8 }}
+            >Selecione sua avaliação:</Text>
+            <AirbnbRating
+              count={5}
+              reviews={['Terrível', 'Ruim', 'Ok', 'Bom', 'Excelente']}
+              defaultRating={rating}
+              size={20}
+              onFinishRating={(rating) => setRating(rating)}
+            />
+
+
             <Button onPress={handleSubmit} style={{ borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000' }}>Salvar</Button>
           </View>
         )}
@@ -167,14 +188,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fcf2c5',
     marginTop: 10
   },
-  maskCurrency: {
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 10,
-    backgroundColor: '#fcf2c5'
-
-  }
 })
 
 export default ProdutosForm;

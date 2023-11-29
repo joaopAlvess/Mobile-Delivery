@@ -5,7 +5,10 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import { Picker } from '@react-native-picker/picker'
 import deliveryValidator from '../../validators/deliveryValidator'
+
+import { MaskedTextInput } from 'react-native-mask-text'
 import { mask } from 'remask'
+
 
 const DeliverysForm = ({ navigation, route }) => {
 
@@ -15,16 +18,21 @@ const DeliverysForm = ({ navigation, route }) => {
     cep: '',
     tempo_entrega: '',
     funcionamento: '',
-    avaliacao: '',
+    nome_produto: '',
+    preco_produto: '',
+
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
+
+
 
   const id = route.params?.id
 
   if (id >= 0) {
     delivery = route.params?.delivery
   }
+
 
   function salvar(dados) {
 
@@ -43,6 +51,8 @@ const DeliverysForm = ({ navigation, route }) => {
       navigation.goBack()
     })
   }
+
+
 
   return (
     <ScrollView style={{ margin: 15 }}>
@@ -97,6 +107,7 @@ const DeliverysForm = ({ navigation, route }) => {
               </Text>
             }
 
+
             <TextInput
               style={styles.compoInput}
               mode='outlined'
@@ -105,11 +116,11 @@ const DeliverysForm = ({ navigation, route }) => {
               value={values.tempo_entrega}
               onChangeText={handleChange('tempo_entrega')}
             />
-            {(errors.tempo_entrega && touched.tempo_entrega) &&
-              <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.tempo_entrega}
-              </Text>
-            }
+            {(errors.tempo_entrega && touched.tempo_entrega) && (
+              <Text style={{ color: 'red', marginTop: 5 }}>{errors.tempo_entrega}</Text>
+            )}
+
+
 
             <TextInput
               style={styles.compoInput}
@@ -128,24 +139,44 @@ const DeliverysForm = ({ navigation, route }) => {
             <TextInput
               style={styles.compoInput}
               mode='outlined'
-              label='Avaliacao'
-              keyboardType='decimal-pad'
-              value={values.avaliacao}
-              onChangeText={handleChange('avaliacao')}
+              label='Nome Produto'
+              value={values.nome_produto}
+              onChangeText={handleChange('nome_produto')}
             />
-            {(errors.avaliacao && touched.avaliacao) &&
+            {(errors.nome_produto && touched.nome_produto) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.avaliacao}
+                {errors.nome_produto}
               </Text>
             }
+
+            <MaskedTextInput
+              type="currency"
+              options={{
+                prefix: 'R$',
+                decimalSeparator: ',',
+                groupSeparator: '.',
+                precision: 2
+              }}
+              onChangeText={(text, rawText) => {
+                setFieldValue('preco_produto', rawText);
+              }}
+              style={styles.maskCurrency}
+              mode="outlined"
+              keyboardType="numeric"
+              placeholder='Preço Produto'
+              value={values.preco_produto}
+            />
+            {(errors.preco_produto && touched.preco_produto) && (
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.preco_produto}
+              </Text>
+            )}
 
             <Button onPress={() => { console.log('Botão Salvar pressionado'); handleSubmit(); }} style={{ borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000' }}>Salvar</Button>
           </View>
         )}
 
       </Formik>
-
-
 
     </ScrollView>
   )
@@ -155,6 +186,14 @@ const styles = StyleSheet.create({
   compoInput: {
     backgroundColor: '#fcf2c5',
     marginTop: 10
+  },
+  maskCurrency: {
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 10,
+    backgroundColor: '#fcf2c5'
+
   }
 })
 

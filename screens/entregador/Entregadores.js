@@ -45,7 +45,7 @@ const Entregadores = ({ navigation }) => {
 
         {entregadores.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
-            <Card.Content>
+            <Card.Content  style={{backgroundColor: '#fcf7d2'}}>
               <Text variant="titleLarge">{item.nome}</Text>
               <Text variant="bodyMedium">Telefone: {item.telefone}</Text>
               <Text variant="bodyMedium">Restaurante: {item.delivery}</Text>

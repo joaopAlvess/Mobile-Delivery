@@ -82,7 +82,7 @@ const EntregadorsForm = ({ navigation, route }) => {
               label='Telefone'
               keyboardType='decimal-pad'
               value={values.telefone}
-              onChangeText={handleChange('telefone')}
+              onChangeText={(value) => { setFieldValue('telefone', mask(value, '(99) 99999-9999')) }}
             />
             {(errors.telefone && touched.duracao) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
@@ -114,16 +114,13 @@ const EntregadorsForm = ({ navigation, route }) => {
               mode='outlined'
               label='CPF'
               value={values.cpf}
-              onChangeText={handleChange('cpf')}
+              onChangeText={(value) => { setFieldValue('cpf', mask(value, '999.999.999-99')) }}
             />
             {(errors.cpf && touched.cpf) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.cpf}
               </Text>
             }
-
-
-
 
             <Button onPress={handleSubmit} style={{borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000'}}>Salvar</Button>
           </View>

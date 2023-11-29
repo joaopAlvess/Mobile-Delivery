@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import { Picker } from '@react-native-picker/picker'
 import clienteValidator from '../../validators/clienteValidator'
+import { mask } from 'remask'
 
 
 const ClientesForm = ({ navigation, route }) => {
@@ -89,7 +90,7 @@ const ClientesForm = ({ navigation, route }) => {
               label='Contato'
               keyboardType='number-pad'
               value={values.contato}
-              onChangeText={handleChange('contato')}
+              onChangeText={(value) => { setFieldValue('contato', mask(value, '(99) 99999-9999')) }}
             />
             {(errors.contato && touched.contato) &&
               <Text style={{ color: 'red', marginTop: 5 }}>

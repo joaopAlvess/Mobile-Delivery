@@ -45,7 +45,7 @@ const Clientes = ({ navigation }) => {
 
         {clientes.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
-            <Card.Content>
+            <Card.Content style={{backgroundColor: '#fcf7d2'}}>
               <Text variant="titleLarge">Nome: {item.nome}</Text>
               <Text variant="bodyMedium">Email: {item.email}</Text>
               <Text variant="bodyMedium">Contato: {item.contato}</Text>
