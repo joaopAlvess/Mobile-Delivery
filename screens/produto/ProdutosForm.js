@@ -1,32 +1,31 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from 'axios'
 import { Formik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import produtoValidator from '../../validators/produtoValidator'
 import { Picker } from '@react-native-picker/picker'
-import { AirbnbRating } from 'react-native-ratings'
+import produtoValidator from '../../validators/produtoValidator'
+import { useEffect } from 'react'
+
 
 
 const ProdutosForm = ({ navigation, route }) => {
 
   let produto = {
     delivery: '',
-    produto: '',
+    produto_id: '',
     cliente: '',
     pagamento: '',
     informacoes: '',
-    avaliacao: '',
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
   const [deliverys, setDeliverys] = useState([])
   const [clientes, setClientes] = useState([])
-  const [rating, setRating] = useState(0);
+ 
+
 
   const id = route.params?.id
-
 
   if (id >= 0) {
     produto = route.params?.produto
@@ -42,7 +41,6 @@ const ProdutosForm = ({ navigation, route }) => {
       setClientes(resultado)
     })
   }, [])
-
 
   function salvar(dados) {
 
@@ -61,6 +59,8 @@ const ProdutosForm = ({ navigation, route }) => {
       navigation.goBack()
     })
   }
+
+
 
   return (
     <ScrollView style={{ margin: 15 }}>
@@ -95,8 +95,8 @@ const ProdutosForm = ({ navigation, route }) => {
 
             <Picker
               style={{ marginTop: 10, padding: 10, fontSize: 15 }}
-              selectedValue={values.produto}
-              onValueChange={handleChange('produto')
+              selectedValue={values.produto_id}
+              onValueChange={handleChange('produto_id')
               }>
               <Picker.Item label='Produto' value='' />
               {deliverys.map((item, i) => (
@@ -160,34 +160,29 @@ const ProdutosForm = ({ navigation, route }) => {
               </Text>
             }
 
-            <Text
-              style={{ marginTop: 10, fontSize: 15, borderWidth: 1, borderRadius: 8, textAlign: 'center', padding: 8 }}
-            >Selecione sua avaliação:</Text>
-            <AirbnbRating
-              count={5}
-              reviews={['Terrível', 'Ruim', 'Ok', 'Bom', 'Excelente']}
-              defaultRating={rating}
-              size={20}
-              onFinishRating={(rating) => setRating(rating)}
-            />
-
-
-            <Button onPress={handleSubmit} style={{ borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000' }}>Salvar</Button>
+            <Button onPress={() => { console.log('Botão Salvar pressionado'); handleSubmit(); }} style={{ borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000' }}>Salvar</Button>
           </View>
         )}
 
       </Formik>
 
-
     </ScrollView>
   )
-};
+}
 
 const styles = StyleSheet.create({
   compoInput: {
     backgroundColor: '#fcf2c5',
     marginTop: 10
   },
+  maskCurrency: {
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 10,
+    backgroundColor: '#fcf2c5'
+
+  }
 })
 
-export default ProdutosForm;
+export default ProdutosForm

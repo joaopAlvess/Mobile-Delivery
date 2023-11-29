@@ -5,8 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import ClienteStack from './screens/cliente/ClienteStack';
 import EntregadorsStack from './screens/entregador/EntregadorStack';
 import CardStack from './screens/card/CardStack';
-import ProdutoStack from './screens/produto/ProdutoStack';
 import DeliveryStack from './screens/delivery/DeliveryStack';
+import ProdutoStack from './screens/produto/ProdutoStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
