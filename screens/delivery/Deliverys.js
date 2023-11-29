@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Image, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { Button, Card, Dialog, FAB, IconButton, MD3DarkTheme, Portal, Text } from 'react-native-paper'
 
-const Restaurantes = ({ navigation }) => {
+const Deliverys = ({ navigation }) => {
 
-  const [restaurantes, setRestaurantes] = useState([])
+  const [deliverys, setDeliverys] = useState([])
   const [idExcluir, setIdExcluir] = useState(0)
 
   const [visible, setVisible] = React.useState(false);
@@ -20,9 +20,9 @@ const Restaurantes = ({ navigation }) => {
   );
 
   function carregarDados() {
-    AsyncStorage.getItem('restaurantes').then(resultado => {
+    AsyncStorage.getItem('deliverys').then(resultado => {
       resultado = JSON.parse(resultado) || []
-      setRestaurantes(resultado)
+      setDeliverys(resultado)
     })
   }
 
@@ -32,8 +32,8 @@ const Restaurantes = ({ navigation }) => {
   }
 
   function excluir() {
-    restaurantes.splice(idExcluir, 1)
-    AsyncStorage.setItem('restaurantes', JSON.stringify(restaurantes))
+    deliverys.splice(idExcluir, 1)
+    AsyncStorage.setItem('deliverys', JSON.stringify(deliverys))
     carregarDados()
     setVisible(false)
   }
@@ -42,23 +42,21 @@ const Restaurantes = ({ navigation }) => {
     <>
 
       <ScrollView style={{ padding: 15 }}>
-      
 
-        {restaurantes.map((item, i) => (
+        {deliverys.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
             <Card.Content>
-              <Text variant="titleLarge">{item.nomeEmpresa}</Text>
+              <Text variant="titleLarge">Nome da Empresa: {item.nome_empresa}</Text>
               <Text variant="bodyMedium">Telefone: {item.telefone}</Text>
               <Text variant="bodyMedium">CEP: {item.cep}</Text>
               <Text variant="bodyMedium">Tempo Entrega: {item.tempo_entrega}</Text>
-              <Text variant="bodyMedium">Horário Funcionamento: {item.horario}</Text>
+              <Text variant="bodyMedium">Horário Funcionamento: {item.funcionamento}</Text>
               <Text variant="bodyMedium">Avaliação: {item.avaliacao}</Text>
-              <Text variant="bodyMedium">Entregador: {item.entregador}</Text>
             </Card.Content>
             <Card.Actions>
               <IconButton 
                 icon='pencil-outline' 
-                onPress={() => navigation.push('restaurantes-form', {id: i, restaurante: item})}
+                onPress={() => navigation.push('deliverys-form', {id: i, delivery: item})}
               />
               <IconButton
                 icon='trash-can-outline'
@@ -86,11 +84,11 @@ const Restaurantes = ({ navigation }) => {
         icon="plus"
         size='small'
         style={{ position: 'absolute', right: 10, bottom: 10 }}
-        onPress={() => navigation.push('restaurantes-form')}
+        onPress={() => navigation.push('deliverys-form')}
       />
 
     </>
   )
 }
 
-export default Restaurantes;
+export default Deliverys;

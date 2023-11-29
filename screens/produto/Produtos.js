@@ -46,7 +46,7 @@ const Produtos = ({ navigation }) => {
         {produtos.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
             <Card.Content>
-              <Text variant="titleLarge">Restaurante: {item.restaurante}</Text>
+              <Text variant="titleLarge">Restaurante: {item.delivery}</Text>
               <Text variant="bodyMedium">Nome Produto: {item.nome_produto} sem.</Text>
               <Text variant="bodyMedium">Preço Produto: {item.preco_produto}</Text>
               <Text variant="bodyMedium">Informações Pagamento: {item.pagamento}</Text>

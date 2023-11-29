@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from 'axios'
 import { Formik } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import entregadorValidator from '../../validators/entregadorValidator'
@@ -13,12 +12,13 @@ const EntregadorsForm = ({ navigation, route }) => {
   let entregador = {
     nome: '',
     telefone: '',
-    restaurante: '',
+    delivery: '',
     cpf: ''
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const [restaurantes, setRestaurantes] = useState([])
+  const [deliverys, setDeliverys] = useState([])
+  
   const id = route.params?.id
 
   if (id >= 0) {
@@ -27,25 +27,25 @@ const EntregadorsForm = ({ navigation, route }) => {
 
 
   useEffect(() => {
-    AsyncStorage.getItem('restaurantes').then(resultado => {
+    AsyncStorage.getItem('deliverys').then(resultado => {
       resultado = JSON.parse(resultado) || []
-      setRestaurantes(resultado)
+      setDeliverys(resultado)
     })
   }, [])
 
   function salvar(dados) {
 
-    AsyncStorage.getItem('entregadors').then(resultado => {
+    AsyncStorage.getItem('entregadores').then(resultado => {
 
-      const entregadors = JSON.parse(resultado) || []
+      const entregadores = JSON.parse(resultado) || []
 
       if (id >= 0) {
-        entregadors.splice(id, 1, dados)
+        entregadores.splice(id, 1, dados)
       } else {
-        entregadors.push(dados)
+        entregadores.push(dados)
       }
 
-      AsyncStorage.setItem('entregadors', JSON.stringify(entregadors))
+      AsyncStorage.setItem('entregadores', JSON.stringify(entregadores))
 
       navigation.goBack()
     })
@@ -82,31 +82,30 @@ const EntregadorsForm = ({ navigation, route }) => {
               label='Telefone'
               keyboardType='decimal-pad'
               value={values.telefone}
-              onChangeText={handleChange('duracao')}
+              onChangeText={handleChange('telefone')}
             />
-            {(errors.duracao && touched.duracao) &&
+            {(errors.telefone && touched.duracao) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
+                {errors.telefone}
               </Text>
             }
 
             <Picker
               style={{ marginTop: 10, padding: 10, fontSize: 15 }}
-              selectedValue={values.restaurante}
-              onValueChange={handleChange('restaurante')
+              selectedValue={values.delivery}
+              onValueChange={handleChange('delivery')
               }>
               <Picker.Item label='Restaurante' value='' />
-              {restaurantes.map((item, i) => (
+              {deliverys.map((item, i) => (
                 <Picker.Item key={i}
-                  label={item.nome}
-                  value={item.nome}
+                  label={item.nome_empresa}
+                  value={item.nome_empresa}
                 />
               ))}
-
             </Picker>
-            {(errors.modalidade && touched.modalidade) &&
+            {(errors.delivery && touched.delivery) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.modalidade}
+                {errors.delivery}
               </Text>
             }
 

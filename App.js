@@ -2,11 +2,11 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import RestauranteStack from './screens/restaurantes/RestauranteStack';
 import ClienteStack from './screens/cliente/ClienteStack';
 import EntregadorsStack from './screens/entregador/EntregadorStack';
 import CardStack from './screens/card/CardStack';
 import ProdutoStack from './screens/produto/ProdutoStack';
+import DeliveryStack from './screens/delivery/DeliveryStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -29,7 +29,7 @@ export default function App() {
             />
             <Tab.Screen
               name="Delivery" 
-              component={RestauranteStack}
+              component={DeliveryStack}
               options={{
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="book-open-variant" size={26} />

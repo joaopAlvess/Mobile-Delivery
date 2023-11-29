@@ -48,7 +48,7 @@ const Entregadores = ({ navigation }) => {
             <Card.Content>
               <Text variant="titleLarge">{item.nome}</Text>
               <Text variant="bodyMedium">Telefone: {item.telefone}</Text>
-              <Text variant="bodyMedium">Restaurante: {item.restaurante}</Text>
+              <Text variant="bodyMedium">Restaurante: {item.delivery}</Text>
               <Text variant="bodyMedium">CPF: {item.cpf}</Text>
             </Card.Content>
             <Card.Actions>

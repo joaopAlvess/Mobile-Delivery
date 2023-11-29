@@ -82,18 +82,6 @@ const ClientesForm = ({ navigation, route }) => {
               </Text>
             }
 
-            <TextInput
-              style={styles.compoInput}
-              mode='outlined'
-              label='Email'
-              value={values.email}
-              onChangeText={handleChange('email')}
-            />
-            {(errors.email && touched.email) &&
-              <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.email}
-              </Text>
-            }
 
             <TextInput
               style={styles.compoInput}
@@ -135,9 +123,9 @@ const ClientesForm = ({ navigation, route }) => {
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.fidelidade}
               </Text>
-            }            
+            }
 
-            <Button onPress={handleSubmit} style={{borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000'}}>Salvar</Button>
+            <Button onPress={() => { console.log('Botão Salvar pressionado'); handleSubmit(); }} style={{ borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000' }}>Salvar</Button>
           </View>
         )}
 

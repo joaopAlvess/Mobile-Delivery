@@ -1,17 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from 'axios'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
-import { Image, ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import restauranteValidator from '../../validators/restauranteValidator'
-import { mask } from 'remask'
 import { Picker } from '@react-native-picker/picker'
+import deliveryValidator from '../../validators/deliveryValidator'
+import { mask } from 'remask'
 
-const RestaurantesForm = ({ navigation, route }) => {
+const DeliverysForm = ({ navigation, route }) => {
 
-  let restaurante = {
-    nomeEmpresa: '',
+  let delivery = {
+    nome_empresa: '',
     telefone: '',
     cep: '',
     tempo_entrega: '',
@@ -24,29 +23,22 @@ const RestaurantesForm = ({ navigation, route }) => {
   const id = route.params?.id
 
   if (id >= 0) {
-    restaurante = route.params?.restaurante
+    delivery = route.params?.delivery
   }
-
-  useEffect(() => {
-    AsyncStorage.getItem('entregadores').then(resultado => {
-      resultado = JSON.parse(resultado) || []
-      setCursos(resultado)
-    })
-  }, [])
 
   function salvar(dados) {
 
-    AsyncStorage.getItem('restaurantes').then(resultado => {
+    AsyncStorage.getItem('deliverys').then(resultado => {
 
-      const restaurantes = JSON.parse(resultado) || []
+      const deliverys = JSON.parse(resultado) || []
 
       if (id >= 0) {
-        restaurantes.splice(id, 1, dados)
+        deliverys.splice(id, 1, dados)
       } else {
-        restaurantes.push(dados)
+        deliverys.push(dados)
       }
 
-      AsyncStorage.setItem('restaurantes', JSON.stringify(restaurantes))
+      AsyncStorage.setItem('deliverys', JSON.stringify(deliverys))
 
       navigation.goBack()
     })
@@ -54,11 +46,11 @@ const RestaurantesForm = ({ navigation, route }) => {
 
   return (
     <ScrollView style={{ margin: 15 }}>
-      <Text>Cadastro de restaurante</Text>
+      <Text>Formulário de delivery</Text>
 
       <Formik
-        initialValues={restaurante}
-        validationSchema={restauranteValidator}
+        initialValues={delivery}
+        validationSchema={deliveryValidator}
         onSubmit={values => salvar(values)}
       >
         {({ values, handleChange, handleSubmit, errors, touched, setFieldValue }) => (
@@ -67,13 +59,13 @@ const RestaurantesForm = ({ navigation, route }) => {
             <TextInput
               style={styles.compoInput}
               mode='outlined'
-              label='Nome Empresa'
-              value={values.nomeEmpresa}
-              onChangeText={handleChange('nomeEmpresa')}
+              label='Nome da Empresa'
+              value={values.nome_empresa}
+              onChangeText={handleChange('nome_empresa')}
             />
-            {(errors.nomeEmpresa && touched.nomeEmpresa) &&
+            {(errors.nome_empresa && touched.nome_empresa) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.nomeEmpresa}
+                {errors.nome_empresa}
               </Text>
             }
 
@@ -83,7 +75,7 @@ const RestaurantesForm = ({ navigation, route }) => {
               label='Telefone'
               keyboardType='decimal-pad'
               value={values.telefone}
-              onChangeText={handleChange('telefone')}
+              onChangeText={(value) => { setFieldValue('telefone', mask(value, '(99) 99999-9999')) }}
             />
             {(errors.telefone && touched.telefone) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
@@ -97,7 +89,7 @@ const RestaurantesForm = ({ navigation, route }) => {
               label='CEP'
               keyboardType='decimal-pad'
               value={values.cep}
-              onChangeText={handleChange('cep')}
+              onChangeText={(value) => { setFieldValue('cep', mask(value, '99999-999')) }}
             />
             {(errors.cep && touched.cep) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
@@ -147,7 +139,7 @@ const RestaurantesForm = ({ navigation, route }) => {
               </Text>
             }
 
-            <Button onPress={handleSubmit} style={{ borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000' }}>Salvar</Button>
+            <Button onPress={() => { console.log('Botão Salvar pressionado'); handleSubmit(); }} style={{ borderWidth: 1, borderRadius: 10, backgroundColor: '#f7f16f', marginTop: 10, color: '#0000' }}>Salvar</Button>
           </View>
         )}
 
@@ -166,5 +158,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default RestaurantesForm;
-
+export default DeliverysForm
